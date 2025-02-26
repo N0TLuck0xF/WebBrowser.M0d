@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web.m0d</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .logo {
+            font-size: 60px;
+            font-weight: bold;
+            color: #4285f4;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+            text-align: center;
+        }
+        .search-bar:focus {
+            border-color: #4285f4;
+            box-shadow: 0 0 4px rgba(66, 133, 244, 0.5);
+        }
+        .search-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4285f4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #357ae8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">web.m0d</div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search web.m0d">
+        <button class="search-button" onclick="searchWebm0d()">Search</button>
+    </div>
+
+    <script>
+        document.getElementById("searchInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchWebm0d();
+            }
+        });
+
+        function searchWebm0d() {
+            let query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+            if (query.endsWith(".m0d")) {
+                let convertedUrl = query.replace(/\./g, '') + ".html"; // Convert "example.m0d" -> "examplem0d.html"
+                window.location.href = convertedUrl;
+            } else {
+                alert("Invalid site format. Use .m0d domains.");
+            }
+        }
+    </script>
+
+</body>
+</html>
