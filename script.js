@@ -1,25 +1,40 @@
-// Handle search input for desktop and mobile (Enter key + button click)
-document.getElementById("searchInput").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        searchM0dSite();
-    }
-});
+document.addEventListener("DOMContentLoaded", function() {
+    let searchInput = document.getElementById("searchInput");
+    let searchButton = document.querySelector(".search-button");
 
-document.querySelector(".search-button").addEventListener("click", searchM0dSite);
+    if (searchInput && searchButton) {
+        function searchM0dSite() {
+            let query = searchInput.value.trim().toLowerCase();
+            
+            if (query.endsWith(".m0d")) {
+                let convertedUrl = query.replace(/\./g, '') + ".html"; // Converts "sitebuilder.m0d" → "sitebuilderm0d.html"
+                
+                // Check if the file exists before redirecting
+                fetch(convertedUrl)
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = convertedUrl;
+                        } else {
+                            alert("The site does not exist. Check your spelling or create the .m0d site.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("Error loading site. Please try again.");
+                    });
+            } else {
+                alert("Invalid site format. Use .m0d domains.");
+            }
+        }
 
-function searchM0dSite() {
-    let query = document.getElementById("searchInput").value.trim().toLowerCase();
+        searchInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchM0dSite();
+            }
+        });
 
-    if (query.endsWith(".m0d")) {
-        let convertedUrl = query.replace(/\./g, '') + ".html"; // Converts "sitebuilder.m0d" → "sitebuilderm0d.html"
-        window.location.href = convertedUrl;
+        searchButton.addEventListener("click", searchM0dSite);
     } else {
-        alert("Invalid site format. Use .m0d domains.");
+        console.error("Search input or button not found!");
     }
-}
-
-// Email Creation Simulation (Original Script)
-document.querySelector('button').addEventListener('click', () => {
-    alert('Email created successfully! (This is a prototype.)');
 });
