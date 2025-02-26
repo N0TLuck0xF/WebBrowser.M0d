@@ -211,6 +211,26 @@
       margin-top: auto;
     }
     
+    /* Home button to return to web.m0d */
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .home-button:hover {
+      background-color: rgba(0, 245, 212, 0.3);
+    }
+    
     @media (max-width: 768px) {
       .title {
         font-size: 3rem;
@@ -265,12 +285,44 @@
         </div>
       </div>
       
-      <button class="cta-button">Get Started</button>
+      <button id="getStartedBtn" class="cta-button">Get Started</button>
     </div>
     
     <div class="footer">
       &copy; 2025 WorldM0D - An Open Sourced World | All rights released to the community
     </div>
   </div>
+  
+  <div class="home-button" title="Return to web.m0d" onclick="returnToWebM0d()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 22V12H15V22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  
+  <script>
+    // Function to redirect back to the web.m0d search page
+    function returnToWebM0d() {
+      window.location.href = "webm0d.html";
+    }
+    
+    // Get Started button functionality
+    document.getElementById("getStartedBtn").addEventListener("click", function() {
+      // Replace this with actual registration/login functionality
+      alert("Welcome to WorldM0D! This is just a prototype. The full game is coming soon!");
+      
+      // You could also redirect to other .m0d pages here
+      // window.location.href = "worldm0d-register.m0d";
+    });
+    
+    // Add custom navigation links functionality
+    const navLinks = document.querySelectorAll(".nav-links a");
+    navLinks.forEach(link => {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        alert("This section is currently under development. Check back soon!");
+      });
+    });
+  </script>
 </body>
 </html>
