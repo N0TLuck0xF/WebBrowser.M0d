@@ -65,23 +65,36 @@
     </div>
 
     <script>
+        function searchWebm0d() {
+            const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+            if (query.endsWith(".m0d")) {
+                const convertedUrl = query.replace(/\./g, '') + ".html"; // Convert "example.m0d" → "examplem0d.html"
+                
+                // Check if the file exists before redirecting
+                fetch(convertedUrl)
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = convertedUrl;
+                        } else {
+                            alert("The site does not exist. Check your spelling or create the .m0d site.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error loading site:", error);
+                        alert("Error loading site. Please try again.");
+                    });
+            } else {
+                alert("Invalid site format. Use .m0d domains.");
+            }
+        }
+
         document.getElementById("searchInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 searchWebm0d();
             }
         });
-
-        function searchWebm0d() {
-            let query = document.getElementById("searchInput").value.trim().toLowerCase();
-
-            if (query.endsWith(".m0d")) {
-                let convertedUrl = query.replace(/\./g, '') + ".html"; // Convert "example.m0d" -> "examplem0d.html"
-                window.location.href = convertedUrl;
-            } else {
-                alert("Invalid site format. Use .m0d domains.");
-            }
-        }
     </script>
 
 </body>
