@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let searchInput = document.getElementById("searchInput");
-    let searchButton = document.querySelector(".search-button");
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.querySelector(".search-button");
 
     if (searchInput && searchButton) {
         function searchM0dSite() {
-            let query = searchInput.value.trim().toLowerCase();
-            
+            const query = searchInput.value.trim().toLowerCase();
+
             if (query.endsWith(".m0d")) {
-                let convertedUrl = query.replace(/\./g, '') + ".html"; // Converts "sitebuilder.m0d" → "sitebuilderm0d.html"
+                const convertedUrl = query.replace(/\./g, '') + ".html"; // Convert "example.m0d" → "examplem0d.html"
                 
                 // Check if the file exists before redirecting
                 fetch(convertedUrl)
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         }
                     })
                     .catch(error => {
+                        console.error("Error loading site:", error);
                         alert("Error loading site. Please try again.");
                     });
             } else {
