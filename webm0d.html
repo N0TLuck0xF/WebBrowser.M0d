@@ -53,6 +53,26 @@
         .search-button:hover {
             background-color: #357ae8;
         }
+        .search-results {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+            text-align: left;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            display: none; /* Hidden by default */
+        }
+        .search-results div {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+        .search-results div:hover {
+            background-color: #e9ecef;
+        }
     </style>
 </head>
 <body>
@@ -62,9 +82,49 @@
     <div class="search-container">
         <input type="text" id="searchInput" class="search-bar" placeholder="Search web.m0d">
         <button class="search-button" onclick="searchWebm0d()">Search</button>
+        <div class="search-results" id="searchResults"></div>
     </div>
 
     <script>
+        // List of available .m0d sites
+        const m0dSites = [
+            { name: "SiteBuilder.m0d", url: "sitebuilderm0d.html" },
+            { name: "GameDev.m0d", url: "gamedevm0d.html" },
+            { name: "WebDev.m0d", url: "webdevm0d.html" },
+            { name: "AI.m0d", url: "aim0d.html" },
+            { name: "Space.m0d", url: "spacem0d.html" },
+        ];
+
+        // Function to filter and display search results
+        function showSearchResults(query) {
+            const searchResults = document.getElementById("searchResults");
+            searchResults.innerHTML = ""; // Clear previous results
+
+            if (query.length === 0) {
+                searchResults.style.display = "none"; // Hide results if query is empty
+                return;
+            }
+
+            const filteredSites = m0dSites.filter(site =>
+                site.name.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (filteredSites.length > 0) {
+                filteredSites.forEach(site => {
+                    const resultItem = document.createElement("div");
+                    resultItem.textContent = site.name;
+                    resultItem.onclick = () => {
+                        window.location.href = site.url; // Redirect to the selected site
+                    };
+                    searchResults.appendChild(resultItem);
+                });
+                searchResults.style.display = "block"; // Show results
+            } else {
+                searchResults.style.display = "none"; // Hide results if no matches
+            }
+        }
+
+        // Function to handle search button click
         function searchWebm0d() {
             const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
@@ -89,6 +149,13 @@
             }
         }
 
+        // Event listener for live search
+        document.getElementById("searchInput").addEventListener("input", function(event) {
+            const query = event.target.value.trim();
+            showSearchResults(query);
+        });
+
+        // Event listener for Enter key
         document.getElementById("searchInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
